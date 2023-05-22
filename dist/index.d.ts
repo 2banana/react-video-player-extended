@@ -1,7 +1,7 @@
 import React from 'react';
 import { Marker, MarkerConfiguration } from './marker';
 import './styles.css';
-export declare type ControlSelection = 'FullScreen' | 'Play' | 'Progress' | 'Time' | 'Volume' | 'LastFrame' | 'NextFrame';
+export declare type ControlSelection = 'FullScreen' | 'Play' | 'Progress' | 'Time' | 'Volume' | 'LastFrame' | 'NextFrame' | 'AddMarker' | 'ExportMarkers' | 'ImportMarkers';
 export declare type SettingsSelection = 'Title' | 'FPS' | 'Repeat' | 'StartTime' | 'Volume';
 export interface ProgressProps {
     currentTime: number;

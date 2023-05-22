@@ -12,6 +12,9 @@ export type ControlSelection =
   | 'Volume'
   | 'LastFrame'
   | 'NextFrame'
+  | 'AddMarker'
+  | 'ExportMarkers'
+  | 'ImportMarkers'
 
 export type SettingsSelection = 'Title' | 'FPS' | 'Repeat' | 'StartTime' | 'Volume'
 
@@ -94,6 +97,10 @@ function VideoPlayer(props: Props) {
   useEffect(() => {
     seekToPlayer()
   }, [timeStart])
+
+   useEffect(() => {
+    setAllMarkers(markers)
+  }, [markers])
 
   useEffect(() => {
     isPlaying ? playerEl.current.play() : playerEl.current.pause()
@@ -253,7 +260,7 @@ function VideoPlayer(props: Props) {
       title: `newMarker_${id}`,
     }
     const m = allMarkers.map((x) => x)
-    m.push(newMarker)
+   // m.push(newMarker)
     setAllMarkers(m)
     onMarkerAdded(newMarker)
   }
