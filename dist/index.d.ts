@@ -8,6 +8,9 @@ export interface ProgressProps {
     duration: number;
     percentage: number;
 }
+export interface ChildRef {
+    onManualMarkerAdd: () => void;
+}
 interface Props {
     url: string;
     controls?: ControlSelection[];
@@ -19,6 +22,7 @@ interface Props {
     markers?: Marker[];
     timeStart?: number;
     fps?: number;
+    ref?: React.MutableRefObject<ChildRef | null>;
     onPlay?: () => void;
     onPause?: () => void;
     onVolume?: (volume: number) => void;
@@ -32,5 +36,5 @@ interface Props {
     viewSettings?: SettingsSelection[];
     markerConfiguration?: MarkerConfiguration;
 }
-declare function VideoPlayer(props: Props): JSX.Element;
+declare const VideoPlayer: React.ForwardRefExoticComponent<Pick<Props, "url" | "controls" | "height" | "width" | "isPlaying" | "volume" | "loop" | "markers" | "timeStart" | "fps" | "onPlay" | "onPause" | "onVolume" | "onProgress" | "onDuration" | "onMarkerClick" | "onMarkerAdded" | "onLoadedMetadata" | "onVideoPlayingComplete" | "selectedMarker" | "viewSettings" | "markerConfiguration"> & React.RefAttributes<ChildRef>>;
 export default VideoPlayer;

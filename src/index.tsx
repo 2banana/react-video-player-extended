@@ -24,6 +24,10 @@ export interface ProgressProps {
   percentage: number
 }
 
+export interface ChildRef {
+  onManualMarkerAdd: () => void
+}
+
 interface Props {
   url: string
   controls?: ControlSelection[]
@@ -35,6 +39,7 @@ interface Props {
   markers?: Marker[]
   timeStart?: number
   fps?: number
+  ref?: React.MutableRefObject<ChildRef | null>
   onPlay?: () => void
   onPause?: () => void
   onVolume?: (volume: number) => void
@@ -51,7 +56,7 @@ interface Props {
 
 const DEFAULT_VOLUME: number = 0.7
 
-function VideoPlayer(props: Props) {
+const VideoPlayer = React.forwardRef<ChildRef, Props>((props, ref) => {
   const playerEl = useRef<HTMLVideoElement>(null)
   const progressEl = useRef<HTMLProgressElement>(null)
   const volumeEl = useRef<HTMLProgressElement>(null)
@@ -98,7 +103,7 @@ function VideoPlayer(props: Props) {
     seekToPlayer()
   }, [timeStart])
 
-   useEffect(() => {
+  useEffect(() => {
     setAllMarkers(markers)
   }, [markers])
 
@@ -260,10 +265,19 @@ function VideoPlayer(props: Props) {
       title: `newMarker_${id}`,
     }
     const m = allMarkers.map((x) => x)
-   // m.push(newMarker)
+    // m.push(newMarker)
     setAllMarkers(m)
     onMarkerAdded(newMarker)
   }
+
+  // Imperative handling
+  const handleManualMarkerAddClick = (): void => handleAddMarkerClick()
+
+  React.useImperativeHandle(ref, () => ({
+    onManualMarkerAdd() {
+      handleManualMarkerAddClick()
+    },
+  }))
 
   useEffect(() => {
     const instance = playerEl.current
@@ -344,6 +358,6 @@ function VideoPlayer(props: Props) {
       ) : null}
     </div>
   )
-}
+})
 
 export default VideoPlayer
