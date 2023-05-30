@@ -296,7 +296,7 @@ const VideoPlayer = React.forwardRef<ChildRef, Props>((props, ref) => {
         instance.removeEventListener('durationchange', handleDurationLoaded)
       }
     }
-  }, [])
+  }, [url])
 
   return (
     <div className="react-video-wrap" style={{ height, width }}>
